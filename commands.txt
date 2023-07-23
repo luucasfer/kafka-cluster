@@ -1,0 +1,29 @@
+docker exec -it kafka-cluster-kafka-1-1 bash 
+
+# Create Topic
+kafka-topics --create --bootstrap-server localhost:29092 --replication-factor 3 --partitions 3 --topic mytopic
+
+
+# See the topics inside the broker
+kafka-topics --list --bootstrap-server localhost:29092
+
+
+# Create a producer that will post in the choosed broker and topic
+kafka-console-producer --broker-list localhost:29092 --topic mytopic
+
+
+# Listen the topic
+kafka-console-consumer --bootstrap-server localhost:29092 --topic mytopic
+
+# Listen all messages in the queue
+kafka-console-consumer --bootstrap-server localhost:29092 --topic mytopic --from-beginning
+
+# Choose a group
+kafka-console-consumer --bootstrap-server localhost:29092 --topic mytopic --from-beginning --group mygroup
+ 
+
+# Describe the topic, partitions, replicas
+kafka-topics --describe --bootstrap-server localhost:29092 --topic mytopic
+
+# Describe the consumer group
+kafka-consumer-groups --group mygroup --bootstrap-server localhost:29092 --describe
